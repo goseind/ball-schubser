@@ -3,10 +3,10 @@ Autonome mobile Roboter HS Mannheim
 
 ## ROS commands
 
-ui: `rqt`
-list all packages: `rospack list-names`
-build packages inside `~/catkin_ws`: catkin_make
-start master: `roscore`
+- ui: `rqt`
+- list all packages: `rospack list-names`
+- build packages inside `~/catkin_ws`: catkin_make
+- start master: `roscore`
 
 ## Turtlebot
 
