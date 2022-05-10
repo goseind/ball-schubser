@@ -13,8 +13,12 @@ network:
       optional: true
   wifis:
     wlan0:
-      dhcp4: yes
-      dhcp6: yes
+      dhcp4: no
+      addresses: [192.168.168.4/24] # Static IP (Remote PC IP: 192.168.168.5)
+      gateway4: 192.168.168.4
+      nameservers:
+        addresses: [192.168.168.1]
       access-points:
+        # Lab Router
         Netgear:
           password: 14736ef672abb32b563546bf8709fff09090
