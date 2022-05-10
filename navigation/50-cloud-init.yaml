@@ -16,5 +16,5 @@ network:
       dhcp4: yes
       dhcp6: yes
       access-points:
-        domdom:
-          password: LetMeIn!
+        Netgear:
+          password: 14736ef672abb32b563546bf8709fff09090
