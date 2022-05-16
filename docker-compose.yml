@@ -2,25 +2,32 @@ version: "3"
 
 services:
   roscore:
-    image: ros:noetic-ros-base
-    command: roscore
+    image: ros:noetic-ros-core
+    command: stdbuf -o L roscore
     ports:
       - 11311:11311
+    restart: always
 
   detect:
     build:
       context: ./docker
       dockerfile: Dockerfile
-    command: watchmedo auto-restart --patterns="*.py" --kill-after 0.5 --recursive python3 -- /app/main.py
+    command: /watchdog.sh detect.py
+    environment:
+      ROS_MASTER_URI: http://roscore:11311
     volumes:
       - ./detect:/app
-    devices:
-      - /dev/video0:/dev/video0
+    depends_on:
+      - roscore
 
   nav:
     build:
       context: ./docker
       dockerfile: Dockerfile
-    command: watchmedo auto-restart --patterns="*.py" --kill-after 0.5 --recursive python3 -- /app/main.py
+    command: /watchdog.sh navigation.py
+    environment:
+      ROS_MASTER_URI: http://roscore:11311
     volumes:
       - ./navigation:/app
+    depends_on:
+      - roscore

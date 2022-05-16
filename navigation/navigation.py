@@ -8,8 +8,8 @@ speed=0.3 # speed between 1.0 and -1.0 (negative reverse)
 
 def callback(pos: Float64):
     global angle
+    rospy.loginfo("I heard %d", pos)
     if pos.data > 0 and pos.data <= 1.0:
-        rospy.loginfo("I heard %d", pos.data)
         angle=(pos.data - 0.5) * 6.0 # map 0 - 1.0 => -3.0 - 3.0
 
 def loop():
@@ -27,8 +27,7 @@ def init():
     cmd_pub = rospy.Publisher('cmd_vel', Twist, queue_size=10)
     rospy.init_node('ball_schubser_control', anonymous=True)
     rospy.Subscriber("ball_pos", Float64, callback)
-
-    rospy.loginfo("Started navigation node")
+    rospy.loginfo("Started navigation node ")
 
     rate = rospy.Rate(10) # 10hz
     while not rospy.is_shutdown():
@@ -36,7 +35,4 @@ def init():
         rate.sleep()
 
 if __name__ == '__main__':
-    try:
-        init()
-    except rospy.ROSInterruptException:
-        pass
+    init()

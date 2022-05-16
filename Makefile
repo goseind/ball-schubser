@@ -1,6 +1,6 @@
 BOT_IP=192.168.168.4
 
-.PHONY: all simulator navigation
+.PHONY: all simulator nav detect
 all: get build install
 
 help: ## Display this help screen
@@ -15,3 +15,12 @@ bot:
 
 bot-cam:
 	ssh -R 11311:localhost:11311 ubuntu@$(BOT_IP) ./cam.sh
+
+build:
+	cd docker/ && docker build -t yolo-ros .
+
+detect:
+	docker run --rm -ti -v $$(pwd)/detect:/app --device /dev/video0:/dev/video0 -e ROS_MASTER_URI=http://192.168.168.5:11311 yolo-ros /watchdog.sh detect.py
+
+nav:
+	docker run --rm -ti -v $$(pwd)/navigation:/app --device /dev/video0:/dev/video0 -e ROS_MASTER_URI=http://192.168.168.5:11311 yolo-ros /watchdog.sh navigation.py

@@ -48,7 +48,7 @@ def init():
     ball_pos_pub = rospy.Publisher('ball_pos', Float64, queue_size=10)
     rospy.init_node('ball_schubser_detect', anonymous=True)
     rospy.Subscriber("usb_cam/image_raw", Image, callback)
-    rospy.loginfo("Welcome")
+    rospy.loginfo("Started detection node")
     rospy.spin()
 
     # rate = rospy.Rate(10) # 10hz

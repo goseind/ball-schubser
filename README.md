@@ -13,7 +13,7 @@ A robot that pushes a ball.
 
 ```bash
 export TURTLEBOT3_MODEL=burger
-export ROS_MASTER_URI=127.0.0.1 # when using ssh port forwarding
+export ROS_MASTER_URI=192.168.168.5
 roslaunch turtlebot3_bringup turtlebot3_core.launch # bring-up cmd without LIDAR sensor
 ```
 
@@ -26,7 +26,7 @@ Turtlebot and PC have a static IP configured:
 
 They are connected to the lab router with SSID: `Netgear`.
 
-Refer to [Network Manager YML](navigation/50-cloud-init.yaml).
+Refer to [Network Manager YML](turtlebot/50-cloud-init.yaml).
 
 ## Problems (so far..)
 
