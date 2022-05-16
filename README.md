@@ -14,7 +14,7 @@ A robot that pushes a ball.
 ```bash
 export TURTLEBOT3_MODEL=burger
 export ROS_MASTER_URI=127.0.0.1 # when using ssh port forwarding
-roslaunch turtlebot3_bringup turtlebot3_robot.launch # bring-up cmd
+roslaunch turtlebot3_bringup turtlebot3_core.launch # bring-up cmd without LIDAR sensor
 ```
 
 ## Network Configuration
