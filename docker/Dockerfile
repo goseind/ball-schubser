@@ -38,9 +38,10 @@ RUN pip install rospkg watchdog
 
 # setup entrypoint
 COPY ./ros_entrypoint.sh /
+COPY ./run.sh /
 
 ENTRYPOINT ["/ros_entrypoint.sh"]
-CMD ["bash"]
+CMD ["/run.sh"]
 
 ENV ROS_MASTER_URI http://192.168.168.5:11311
 
