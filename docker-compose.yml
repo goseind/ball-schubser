@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  roscore:
+    image: ros:noetic-ros-base
+    command: roscore
+    ports:
+      - 11311:11311
+
+  detect:
+    build:
+      context: ./docker
+      dockerfile: Dockerfile
+    command: watchmedo auto-restart --patterns="*.py" --recursive --command="python3 detect.py" .
+    volumes:
+      - ./detect:/app
+    devices:
+      - /dev/video0:/dev/video0
+
+  nav:
+    build:
+      context: ./docker
+      dockerfile: Dockerfile
+    command: watchmedo auto-restart --patterns="*.py" --recursive --command="python3 control.py" .
+    volumes:
+      - ./navigation:/app

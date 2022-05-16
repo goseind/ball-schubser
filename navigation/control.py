@@ -1,17 +1,16 @@
-#!/usr/bin/env python
-
-from ctypes import pointer
 import rospy
 
-from geometry_msgs.msg import Twist, Vector3
+from geometry_msgs.msg import Twist
+from std_msgs.msg import Float64
 
-angle=0 # steering between 3.0 and -3.0 (negative left)
+angle=0 # steering between -3.0 and 3.0 (negative left)
 speed=0.3 # speed between 1.0 and -1.0 (negative reverse)
 
-def callback(point:Vector3):
+def callback(pos: Float64):
     global angle
-    rospy.loginfo("I heard %d", point.x)
-    angle=point.x # TODO: get value from data
+    if pos.data > 0 and pos.data <= 1.0:
+        rospy.loginfo("I heard %d", pos.data)
+        angle=(pos.data - 0.5) * 6.0 # map 0 - 1.0 => -3.0 - 3.0
 
 def loop():
     global cmd_pub, angle, speed
@@ -27,12 +26,9 @@ def init():
 
     cmd_pub = rospy.Publisher('cmd_vel', Twist, queue_size=10)
     rospy.init_node('ball_schubser_control', anonymous=True)
+    rospy.Subscriber("ball_pos", Float64, callback)
 
-    rospy.loginfo("Welcome")
-
-    rospy.Subscriber("img_pos", Vector3, callback)
-    # spin() simply keeps python from exiting until this node is stopped
-    # rospy.spin()
+    rospy.loginfo("Started navigation node")
 
     rate = rospy.Rate(10) # 10hz
     while not rospy.is_shutdown():
