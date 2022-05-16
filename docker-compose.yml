@@ -11,6 +11,7 @@ services:
     build:
       context: ./docker
       dockerfile: Dockerfile
+    command: watchmedo auto-restart --patterns="*.py" --kill-after 0.5 --recursive python3 -- /app/main.py
     volumes:
       - ./detect:/app
     devices:
@@ -20,5 +21,6 @@ services:
     build:
       context: ./docker
       dockerfile: Dockerfile
+    command: watchmedo auto-restart --patterns="*.py" --kill-after 0.5 --recursive python3 -- /app/main.py
     volumes:
       - ./navigation:/app
