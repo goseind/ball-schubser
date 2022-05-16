@@ -17,6 +17,15 @@ export ROS_MASTER_URI=127.0.0.1 # when using ssh port forwarding
 roslaunch turtlebot3_bringup turtlebot3_core.launch # bring-up cmd without LIDAR sensor
 ```
 
+Manual start for webcam:
+
+```bash
+ssh ubuntu@192.168.168.4
+roslaunch 
+roslaunch usb_cam usb_cam-test.launch
+roslaunch turtlebot3_bringup turtlebot3_core.launch # or turtlebot3_robot.launch
+```
+
 ## Network Configuration
 
 Turtlebot and PC have a static IP configured:
