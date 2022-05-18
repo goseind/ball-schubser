@@ -8,7 +8,7 @@ speed=0.3 # speed between 1.0 and -1.0 (negative reverse)
 
 def callback(pos: Float64):
     global angle
-    rospy.loginfo("I heard %d", pos)
+    rospy.loginfo("I heard %f", pos.data)
     if pos.data > 0 and pos.data <= 1.0:
         angle=(pos.data - 0.5) * 6.0 # map 0 - 1.0 => -3.0 - 3.0
 
@@ -19,7 +19,7 @@ def loop():
     twist = Twist()
     twist.linear.x = speed
     twist.angular.z = angle
-    cmd_pub.publish(twist)
+    # cmd_pub.publish(twist)
 
 def init():
     global cmd_pub
