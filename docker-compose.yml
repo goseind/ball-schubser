@@ -4,6 +4,8 @@ services:
   roscore:
     image: ros:noetic-ros-core
     command: stdbuf -o L roscore
+    tty: true
+    stdin_open: true
     ports:
       - 11311:11311
     restart: always
@@ -13,6 +15,8 @@ services:
       context: ./docker
       dockerfile: Dockerfile
     command: /watchdog.sh detect.py
+    tty: true
+    stdin_open: true
     environment:
       ROS_MASTER_URI: http://roscore:11311
     volumes:
@@ -25,6 +29,8 @@ services:
       context: ./docker
       dockerfile: Dockerfile
     command: /watchdog.sh navigation.py
+    tty: true
+    stdin_open: true
     environment:
       ROS_MASTER_URI: http://roscore:11311
     volumes:

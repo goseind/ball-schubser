@@ -27,7 +27,8 @@ def init():
     cmd_pub = rospy.Publisher('cmd_vel', Twist, queue_size=10)
     rospy.init_node('ball_schubser_control', anonymous=True)
     rospy.Subscriber("ball_pos", Float64, callback)
-    rospy.loginfo("Started navigation node ")
+    rospy.loginfo("Starting navigation node ...")
+    print("done")
 
     rate = rospy.Rate(10) # 10hz
     while not rospy.is_shutdown():
