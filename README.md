@@ -37,6 +37,18 @@ They are connected to the lab router with SSID: `Netgear`.
 
 Refer to [Network Manager YML](turtlebot/50-cloud-init.yaml).
 
+## Detection Node
+
+Download weights for yolov4 https://github.com/AlexeyAB/darknet/releases/download/darknet_yolo_v3_optimal/yolov4.weights  
+Move the weights into detect/yolo_node/weights.
+
+Dependencies:
+
+* tensorflow
+* pandas
+* opencv-python
+* matplotlib
+
 ## Problems (so far..)
 
 * The default user `ubuntu` on the Turtlebot image does not have the proper `tty` permissions. The problem could be solved by adding `ubuntu` to `root` user group, by executing: `sudo usermod -aG root ubuntu`, as the normal group used for that called `dialout` was not set for `tty`.
