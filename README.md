@@ -21,7 +21,7 @@ Manual start for webcam:
 
 ```bash
 ssh ubuntu@192.168.168.4
-roslaunch 
+roslaunch
 roslaunch usb_cam usb_cam-test.launch
 roslaunch turtlebot3_bringup turtlebot3_core.launch # or turtlebot3_robot.launch
 ```
@@ -39,7 +39,7 @@ Refer to [Network Manager YML](turtlebot/50-cloud-init.yaml).
 
 ## Detection Node
 
-Download weights for yolov4 https://github.com/AlexeyAB/darknet/releases/download/darknet_yolo_v3_optimal/yolov4.weights  
+Download weights for yolov4 https://github.com/AlexeyAB/darknet/releases/download/darknet_yolo_v3_optimal/yolov4.weights
 Move the weights into detect/yolo_node/weights.
 
 Dependencies:
@@ -52,3 +52,17 @@ Dependencies:
 ## Problems (so far..)
 
 * The default user `ubuntu` on the Turtlebot image does not have the proper `tty` permissions. The problem could be solved by adding `ubuntu` to `root` user group, by executing: `sudo usermod -aG root ubuntu`, as the normal group used for that called `dialout` was not set for `tty`.
+
+
+## Raspi cam
+
+```
+
+sudo apt install libraspberrypi-dev libraspberrypi0 libpigpiod-if-dev ros-noetic-compressed-image-transport ros-noetic-camera-info-manager ros-noetic-diagnostic-updater
+
+cd ~/catkin/src
+git clone https://github.com/UbiquityRobotics/raspicam_node
+catkin_make
+
+roslaunch raspicam_node camerav2_1280x960.launch
+```
