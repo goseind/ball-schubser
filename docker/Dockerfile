@@ -34,7 +34,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ros-noetic-cv-bridge \
     && rm -rf /var/lib/apt/lists/*
 
-RUN pip install rospkg watchdog
+RUN pip install rospkg watchdog tensorflow pandas matplotlib
 
 # setup entrypoint
 COPY ./ros_entrypoint.sh /
