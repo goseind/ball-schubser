@@ -4,13 +4,24 @@ from geometry_msgs.msg import Twist
 from std_msgs.msg import Float64
 
 angle=0 # steering between -3.0 and 3.0 (negative left)
-speed=0.3 # speed between 1.0 and -1.0 (negative reverse)
+speed=0 # speed between 1.0 and -1.0 (negative reverse)
+last_ball_pos=0
 
 def callback(pos: Float64):
-    global angle
-    rospy.loginfo("I heard %f", pos.data)
-    if pos.data > 0 and pos.data <= 1.0:
-        angle=(pos.data - 0.5) * 6.0 # map 0 - 1.0 => -3.0 - 3.0
+    global angle, speed, last_ball_pos
+    ball_pos = pos.data
+    if ball_pos == -1.0:
+        speed=0
+        if last_ball_pos >= 0.5:
+            angle=0.75
+        else:
+            angle=-0.75
+        # angle=0.25
+    if ball_pos > 0 and ball_pos <= 1.0:
+        # rospy.loginfo("I heard %f", ball_pos)
+        last_ball_pos=ball_pos
+        speed=1.0
+        angle=(ball_pos - 0.5) * -3.0 # map 0 - 1.0 => -3.0 - 3.0
 
 def loop():
     global cmd_pub, angle, speed
@@ -19,7 +30,7 @@ def loop():
     twist = Twist()
     twist.linear.x = speed
     twist.angular.z = angle
-    # cmd_pub.publish(twist)
+    cmd_pub.publish(twist)
 
 def init():
     global cmd_pub
