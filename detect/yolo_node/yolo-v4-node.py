@@ -51,11 +51,9 @@ class YoloNode(object):
                         x_center = x1 + 0.5 * w
 
                         y2 = nearest_target['y2']
-                        h = nearest_target['h']
-                        y_center = y2 + 0.5 * h
 
                         msg[0] = x_center / self.image.shape[1]
-                        msg[1] = y_center / self.image.shape[0]
+                        msg[1] = y2 / self.image.shape[0]
 
                     if not destinations.empty:
 
@@ -66,11 +64,9 @@ class YoloNode(object):
                         x_center = x1 + 0.5 * w
 
                         y2 = destination['y2']
-                        h = destination['h']
-                        y_center = y2 + 0.5 * h
 
                         msg[2] = x_center / self.image.shape[1]
-                        msg[3] = y_center / self.image.shape[0]
+                        msg[3] = y2 / self.image.shape[0]
             
             self.pub.publish(msg)
             self.loop_rate.sleep()
