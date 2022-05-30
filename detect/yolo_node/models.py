@@ -107,7 +107,7 @@ class Yolov4(object):
                                 initial_epoch=initial_epoch)
     # raw_img: RGB
     def predict_img(self, raw_img, random_color=True, plot_img=True, figsize=(10, 10), show_text=True, return_output=False):
-        print('img shape: ', raw_img.shape)
+        # print('img shape: ', raw_img.shape)
         img = self.preprocess_img(raw_img)
         imgs = np.expand_dims(img, axis=0)
         pred_output = self.inference_model.predict(imgs)
@@ -252,8 +252,8 @@ class Yolov4(object):
                     try:
                         tmp_class_name, confidence, left, top, right, bottom = line.split()
                     except ValueError:
-                        error_msg = f"""Error: File {txt_file} in the wrong format.\n 
-                                        Expected: <class_name> <confidence> <left> <top> <right> <bottom>\n 
+                        error_msg = f"""Error: File {txt_file} in the wrong format.\n
+                                        Expected: <class_name> <confidence> <left> <top> <right> <bottom>\n
                                         Received: {line} \n"""
                         print(error_msg)
                     if tmp_class_name == class_name:

@@ -2,26 +2,27 @@ import rospy
 from sensor_msgs.msg import Image
 from std_msgs.msg import Float64
 from cv_bridge import CvBridge
+import cv2
 from models import Yolov4
 
 class YoloNode(object):
     def __init__(self):
         self.image = None
         self.imageBridge = CvBridge()
-        self.loop_rate = rospy.Rate(5)
+        self.loop_rate = rospy.Rate(10)
         self.RELEVANT_OBJECT = 'sports ball'
-        self.model = Yolov4(weight_path='weights\yolov4.weights', class_name_path='class_names\coco_classes.txt')
+        self.model = Yolov4(weight_path='weights/yolov4.weights', class_name_path='class_names/coco_classes.txt')
 
         # Publishers
-        self.pub = rospy.Publisher('target_offset', Float64, queue_size=5)
+        self.pub = rospy.Publisher('ball_pos', Float64, queue_size=5)
 
         # Subscribers
-        rospy.Subscriber('/camera/image', Image, self.callback)
-        
-        rospy.loginfo("Initialized target calculation...")
+        rospy.Subscriber('cv_camera/image_raw', Image, self.callback)
+
+        rospy.loginfo("Initialized target calculation ...")
 
     def callback(self, msg):
-        rospy.loginfo('Image received...')
+        # rospy.loginfo('Image received...')
         self.image = self.imageBridge.imgmsg_to_cv2(msg)
 
     def start(self):
@@ -31,6 +32,8 @@ class YoloNode(object):
     def loop(self):
         while not rospy.is_shutdown():
             if self.image is not None:
+
+                self.image = cv2.flip(self.image, -1)
                 prediction = self.model.predict_img(self.image, plot_img=False, return_output=True)
                 datframe = prediction[1]
 
@@ -48,8 +51,14 @@ class YoloNode(object):
 
                         target_offset = 2 * x_center / image_x_width - 1
 
-                        self.pub.publish(target_offset)
-            
+                        # print("Target offset: {}".format(target_offset))
+                        newtarget_offset = (target_offset +1) /2
+                        self.pub.publish(newtarget_offset)
+                    else:
+                        self.pub.publish(-1.0)
+                else:
+                    self.pub.publish(-1.0)
+
             self.loop_rate.sleep()
 
 if __name__ == '__main__':

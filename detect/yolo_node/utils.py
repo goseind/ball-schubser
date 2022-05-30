@@ -74,7 +74,7 @@ def get_detection_data(img, model_outputs, class_names):
     df['w'] = df['x2'] - df['x1']
     df['h'] = df['y2'] - df['y1']
 
-    print(f'# of bboxes: {num_bboxes}')
+    # print(f'# of bboxes: {num_bboxes}')
     return df
 
 def read_annotation_lines(annotation_path, test_size=None, random_seed=5566):
