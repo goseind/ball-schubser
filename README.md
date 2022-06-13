@@ -2,6 +2,8 @@
 
 A robot 🤖 that pushes a ball 🥎 (into a goal 🥅).
 
+![](media/ball-schubser_front_1.jpg)
+
 ## Some ROS Commands
 
 - ui: `rqt`
