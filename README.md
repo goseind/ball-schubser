@@ -2,7 +2,7 @@
 
 A robot 🤖 that pushes a ball 🥎 (into a goal 🥅).
 
-![](media/ball-schubser_front_1.jpg)
+[<img src="media/ball-schubser_front_1.jpg" width="400"/>](media/ball-schubser_front_1.jpg)
 
 ## Some ROS Commands
 
