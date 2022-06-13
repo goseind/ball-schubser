@@ -6,10 +6,13 @@ A robot 🤖 that pushes a ball 🥎 (into a goal 🥅).
 
 ## Startup Instructions
 
-1. Run `docker-compose up`
-2. Start Turtlebot and connect to via SSH `ssh ubuntu@192.168.31.4` with default password: `turtlebot`
-3. Make sure the environment variables 
-4. ...
+1. git pull
+2. Inside `.env` add `MASTER_IP=<your-ip>`
+3. Run `docker-compose up -d --remove-orphans`
+4. Start Turtlebot and connect to via SSH `ssh ubuntu@192.168.31.4` with default password: `turtlebot`
+5. Set `export ROS_MASTER_URI=<your-ip>`
+6. Run `sh ~/launch.sh`
+7. Run `sh ~/cam.sh`
 
 ## Some ROS Commands
 
