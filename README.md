@@ -64,5 +64,6 @@ cd ~/catkin/src
 git clone https://github.com/UbiquityRobotics/raspicam_node
 catkin_make
 
-roslaunch raspicam_node camerav2_1280x960.launch
+# to start raspi cam run following script in home
+./cam.sh
 ```

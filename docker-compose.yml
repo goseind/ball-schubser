@@ -6,8 +6,8 @@ services:
     command: stdbuf -o L roscore
     tty: true
     stdin_open: true
-    dns:
-      - 192.168.31.65
+    environment:
+      ROS_IP: ${MASTER_IP}
     # ports:
     #   - 11311:11311
     network_mode: host
@@ -17,12 +17,11 @@ services:
   #     context: ./docker
   #     dockerfile: Dockerfile
   #   command: /watchdog.sh detect.py
-  #   dns:
-  #     - 192.168.31.65
   #   tty: true
   #   stdin_open: true
   #   environment:
-  #     ROS_MASTER_URI: http://192.168.31.65:11311
+  #     ROS_MASTER_URI: http://${MASTER_IP}:11311
+  #     ROS_IP: ${MASTER_IP}
   #   volumes:
   #     - ./detect:/app
   #   network_mode: host
@@ -34,12 +33,11 @@ services:
       context: ./docker
       dockerfile: Dockerfile
     command: /watchdog.sh yolo-v4-node.py
-    dns:
-      - 192.168.31.65
     tty: true
     stdin_open: true
     environment:
-      ROS_MASTER_URI: http://192.168.31.65:11311
+      ROS_MASTER_URI: http://${MASTER_IP}:11311
+      ROS_IP: ${MASTER_IP}
     volumes:
       - ./detect/yolo_node:/app
     network_mode: host
@@ -51,23 +49,13 @@ services:
       context: ./docker
       dockerfile: Dockerfile
     command: /watchdog.sh navigation.py
-    dns:
-      - 192.168.31.65
     tty: true
     stdin_open: true
     environment:
-      ROS_MASTER_URI: http://192.168.31.65:11311
+      ROS_MASTER_URI: http://${MASTER_IP}:11311
+      ROS_IP: ${MASTER_IP}
     volumes:
       - ./navigation:/app
     network_mode: host
     depends_on:
       - roscore
-
-  dns:
-    image: strm/dnsmasq
-    volumes:
-      - ./dnsmasq.conf:/etc/dnsmasq.conf
-    ports:
-      - "53:53/udp"
-    cap_add:
-      - NET_ADMIN
