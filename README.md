@@ -4,6 +4,13 @@ A robot 🤖 that pushes a ball 🥎 (into a goal 🥅).
 
 [<img src="media/ball-schubser_front_1.jpg" width="400"/>](media/ball-schubser_front_1.jpg)
 
+## Startup Instructions
+
+1. Run `docker-compose up`
+2. Start Turtlebot and connect to via SSH `ssh ubuntu@192.168.31.4` with default password: `turtlebot`
+3. Make sure the environment variables 
+4. ...
+
 ## Some ROS Commands
 
 - ui: `rqt`

@@ -18,3 +18,6 @@ bot-cam:
 
 build:
 	cd docker/ && docker build -t yolo-ros .
+
+start-everything:
+	## tbd
