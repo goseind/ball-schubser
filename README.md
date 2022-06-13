@@ -11,6 +11,8 @@ A robot 🤖 that pushes a ball 🥎 (into a goal 🥅).
 
 ## Turtlebot 🐢 Configuration
 
+Connect via SSH `ssh ubuntu@192.168.31.4` with default password: `turtlebot`
+
 ```bash
 export TURTLEBOT3_MODEL=burger
 export ROS_MASTER_URI=192.168.168.5

@@ -1,5 +1,3 @@
-# This file is generated from information provided by the datasource.  Changes
-# to it will not persist across an instance reboot.  To disable cloud-init's
 # network configuration capabilities, write a file
 # /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg with the following:
 # network: {config: disabled}
@@ -14,11 +12,12 @@ network:
   wifis:
     wlan0:
       dhcp4: no
-      addresses: [192.168.168.4/24] # Static IP (Remote PC IP: 192.168.168.5)
-      gateway4: 192.168.168.4
+      addresses: [192.168.31.4/24]
+      gateway4: 192.168.31.1
       nameservers:
-        addresses: [192.168.168.1]
+        addresses: [192.168.31.5] 
       access-points:
-        # Lab Router
-        Netgear:
-          password: 14736ef672abb32b563546bf8709fff09090
+       # Netgear:
+        #  password: 14736ef672abb32b563546bf8709fff09090
+        ParadiseCity:
+          password: DizzyReed
