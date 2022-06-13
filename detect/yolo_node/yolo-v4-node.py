@@ -1,6 +1,6 @@
 import rospy
 from sensor_msgs.msg import Image
-from std_msgs.msg import Float64MultiArray
+from geometry_msgs.msg import Quaternion
 from cv_bridge import CvBridge
 import cv2
 from models import Yolov4
@@ -15,7 +15,7 @@ class YoloNode(object):
         self.model = Yolov4(weight_path='weights/yolov4.weights', class_name_path='class_names/coco_classes.txt')
 
         # Publishers
-        self.pub = rospy.Publisher('ball_pos', Float64MultiArray, queue_size=5)
+        self.pub = rospy.Publisher('ball_pos', Quaternion, queue_size=5)
 
         # Subscribers
         rospy.Subscriber('cv_camera/image_raw', Image, self.callback)
@@ -36,7 +36,12 @@ class YoloNode(object):
                 self.image = cv2.flip(self.image, -1)
                 prediction = self.model.predict_img(self.image, plot_img=False, return_output=True)
                 datframe = prediction[1]
-                msg = [-1.0, -1.0, -1.0, -1.0]
+                # msg = [-1.0, -1.0, -1.0, -1.0]
+                msg = Quaternion()
+                msg.x = -1.0
+                msg.y = -1.0
+                msg.z = -1.0
+                msg.w = -1.0
 
                 if not datframe.empty:
                     targets = datframe.loc[datframe['class_name'] == self.TARGET_OBJECT]
@@ -52,8 +57,8 @@ class YoloNode(object):
 
                         y2 = nearest_target['y2']
 
-                        msg[0] = x_center / self.image.shape[1]
-                        msg[1] = y2 / self.image.shape[0]
+                        msg.x = x_center / self.image.shape[1]
+                        msg.y = y2 / self.image.shape[0]
 
                     if not destinations.empty:
 
@@ -65,10 +70,10 @@ class YoloNode(object):
 
                         y2 = destination['y2']
 
-                        msg[2] = x_center / self.image.shape[1]
-                        msg[3] = y2 / self.image.shape[0]
+                        msg.z = x_center / self.image.shape[1]
+                        msg.w = y2 / self.image.shape[0]
             
-            self.pub.publish(msg)
+                self.pub.publish(msg)
             self.loop_rate.sleep()
 
 if __name__ == '__main__':

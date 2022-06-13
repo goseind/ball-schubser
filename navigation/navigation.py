@@ -1,15 +1,16 @@
 import rospy
 
 from geometry_msgs.msg import Twist
-from std_msgs.msg import Float64
+from geometry_msgs.msg import Quaternion
+# from std_msgs.msg import Float64
 
 angle=0 # steering between -3.0 and 3.0 (negative left)
 speed=0 # speed between 1.0 and -1.0 (negative reverse)
 last_ball_pos=0
 
-def callback(pos: Float64):
+def callback(pos: Quaternion):
     global angle, speed, last_ball_pos
-    ball_pos = pos.data
+    ball_pos = pos.x
     if ball_pos == -1.0:
         speed=0
         if last_ball_pos >= 0.5:
@@ -37,7 +38,7 @@ def init():
 
     cmd_pub = rospy.Publisher('cmd_vel', Twist, queue_size=10)
     rospy.init_node('ball_schubser_control', anonymous=True)
-    rospy.Subscriber("ball_pos", Float64, callback)
+    rospy.Subscriber("ball_pos", Quaternion, callback)
     rospy.loginfo("Starting navigation node ...")
     print("done")
 
