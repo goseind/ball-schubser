@@ -11,7 +11,7 @@ class YoloNode(object):
         self.imageBridge = CvBridge()
         self.loop_rate = rospy.Rate(10)
         self.TARGET_OBJECT = 'sports ball'
-        self.DESTINATION_OBJECT = 'backpack'
+        self.DESTINATION_OBJECT = 'bottle'
         self.model = Yolov4(weight_path='weights/yolov4.weights', class_name_path='class_names/coco_classes.txt')
 
         # Publishers
@@ -34,6 +34,8 @@ class YoloNode(object):
         while not rospy.is_shutdown():
             if self.image is not None:
                 self.image = cv2.flip(self.image, -1)
+                # cv2.imwrite('/app/cap.jpg', self.image)
+
                 prediction = self.model.predict_img(self.image, plot_img=False, return_output=True)
                 datframe = prediction[1]
                 # msg = [-1.0, -1.0, -1.0, -1.0]
@@ -63,7 +65,8 @@ class YoloNode(object):
                     if not destinations.empty:
 
                         # assuming only one destination is set so take the one with highest confidence
-                        destination = destinations[0]
+                        # print(destinations)
+                        destination = destinations.iloc[0]
                         x1 = destination['x1']
                         w = destination['w']
                         x_center = x1 + 0.5 * w
