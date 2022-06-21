@@ -61,7 +61,6 @@ Dependencies:
 * tensorflow
 * pandas
 * opencv-python
-* matplotlib
 
 ## Lessons Learned
 
