@@ -1,11 +1,11 @@
 #! /bin/bash
 
-# Set env variables (if necessary change IP address)
-export TURTLEBOT3_MODEL=burger
-export ROS_MASTER_URI=192.168.168.5
+# set ros master ip
+export TURTLEBOT3_MODEL="burger"
+export ROS_MASTER_URI=$(MASTER_IP)
 
 # Launch ros
-roslaunch turtlebot3_bringup turtlebot3_robot.launch
+roslaunch turtlebot3_bringup turtlebot3_core.launch
 
 # Launch camera
 rosparam set cv_camera/device_id 0

@@ -13,6 +13,12 @@ A robot 🤖 that pushes a ball 🥎 (into a goal 🥅).
 5. Set `export ROS_MASTER_URI=<your-ip>`
 6. Run `sh ~/launch.sh`
 7. Run `sh ~/cam.sh`
+ 
+### Simplified
+
+1. git pull
+2. execute `export BIP=<your bots ip> && export MIP=<your pc ip>`
+3. execute `make everything`
 
 ## Some ROS Commands
 

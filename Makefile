@@ -1,4 +1,5 @@
-BOT_IP=192.168.31.4
+BOT_IP=$$(BIP)
+MASTER_IP=$$(MIP)
 
 .PHONY: all simulator nav detect
 all: get build install
@@ -20,4 +21,7 @@ build:
 	cd docker/ && docker build -t yolo-ros .
 
 start-everything:
-	## tbd
+	docker-compose up -d --remove-orphans
+	export TURTLEBOT3_MODEL="burger"
+	ssh -R 11311:localhost:11311 ubuntu@$(BOT_IP) export ROS_MASTER_URI=$(MASTER_IP)
+	ssh -R 11311:localhost:11311 ubuntu@$(BOT_IP) ./start.sh
