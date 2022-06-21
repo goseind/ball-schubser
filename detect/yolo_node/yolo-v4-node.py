@@ -1,3 +1,4 @@
+import time
 import rospy
 from sensor_msgs.msg import Image
 from geometry_msgs.msg import Quaternion
@@ -24,7 +25,9 @@ class YoloNode(object):
 
     def callback(self, msg):
         # rospy.loginfo('Image received...')
-        self.image = self.imageBridge.imgmsg_to_cv2(msg)
+        img = self.imageBridge.imgmsg_to_cv2(msg)
+        self.image = cv2.flip(img, -1)
+        cv2.imwrite('/app/cap.jpg', self.image)
 
     def start(self):
         rospy.loginfo("Starting target calculation...")
@@ -33,10 +36,10 @@ class YoloNode(object):
     def loop(self):
         while not rospy.is_shutdown():
             if self.image is not None:
-                self.image = cv2.flip(self.image, -1)
-                # cv2.imwrite('/app/cap.jpg', self.image)
-
+                tic = time.perf_counter()
                 prediction = self.model.predict(self.image)
+                toc = time.perf_counter()
+                print(f"Dtected in {toc - tic:0.4f} seconds")
                 # msg = [-1.0, -1.0, -1.0, -1.0]
                 msg = Quaternion()
                 msg.x = -1.0
@@ -52,6 +55,7 @@ class YoloNode(object):
                         sorted_lowest = targets.sort_values('y1', ascending=True)
 
                         nearest_target = sorted_lowest.iloc[0]
+                        print('found: ', nearest_target)
                         x1 = nearest_target['x1']
                         w = nearest_target['w']
                         x_center = x1 + 0.5 * w
@@ -62,7 +66,6 @@ class YoloNode(object):
                         msg.y = y2 / self.image.shape[0]
 
                     if not destinations.empty:
-
                         # assuming only one destination is set so take the one with highest confidence
                         # print(destinations)
                         destination = destinations.iloc[0]

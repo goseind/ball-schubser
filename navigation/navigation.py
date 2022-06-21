@@ -7,16 +7,23 @@ from geometry_msgs.msg import Quaternion
 angle=0 # steering between -3.0 and 3.0 (negative left)
 speed=0 # speed between 1.0 and -1.0 (negative reverse)
 last_ball_pos=0
+search_speed=0.5
 
 def callback(pos: Quaternion):
     global angle, speed, last_ball_pos
-    ball_pos = pos.x
+
+    ball_pos = pos.z if pos.y >= 0.80 else pos.x
+    # ball_pos = pos.x
+    print(str(pos.x) + ", " + str(pos.y) + ", " + str(pos.z) + ", " + str(pos.w) + ": " + str(ball_pos))
+    print("bottle" if pos.y >= 0.80 else "ball")
+
+    # ball_pos = -0.1
     if ball_pos == -1.0:
         speed=0
         if last_ball_pos >= 0.5:
-            angle=0.75
+            angle=search_speed
         else:
-            angle=-0.75
+            angle=-search_speed
         # angle=0.25
     if ball_pos > 0 and ball_pos <= 1.0:
         # rospy.loginfo("I heard %f", ball_pos)

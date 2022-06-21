@@ -23,7 +23,7 @@ def callback(img: Image):
 
     cv_image1 = bridge.imgmsg_to_cv2(img, desired_encoding='passthrough')
     cv_image = cv2.flip(cv_image1, -1)
-    cv2.imwrite('/app/cap.jpg', cv_image)
+    # cv2.imwrite('/app/cap.jpg', cv_image)
     # image_message = bridge.cv2_to_imgmsg(cv_image, encoding="passthrough")
     # ball_debug_pub.publish(img)
 
@@ -58,8 +58,8 @@ def loop():
 def init():
     global ball_pos_pub, ball_debug_pub
 
-    ball_pos_pub = rospy.Publisher('ball_pos', Float64, queue_size=10)
-    ball_debug_pub = rospy.Publisher('ball_debug', Image, queue_size=10)
+    ball_pos_pub = rospy.Publisher('ball_pos', Float64, queue_size=5)
+    # ball_debug_pub = rospy.Publisher('ball_debug', Image, queue_size=10)
     rospy.init_node('ball_schubser_detect', anonymous=True)
     rospy.Subscriber("cv_camera/image_raw", Image, callback)
     rospy.loginfo("Starting detection node ...")
