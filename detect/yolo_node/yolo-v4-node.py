@@ -3,7 +3,7 @@ from sensor_msgs.msg import Image
 from geometry_msgs.msg import Quaternion
 from cv_bridge import CvBridge
 import cv2
-from models import Yolov4
+from yolo_minimal import MinimalYolov4
 
 class YoloNode(object):
     def __init__(self):
@@ -12,7 +12,7 @@ class YoloNode(object):
         self.loop_rate = rospy.Rate(10)
         self.TARGET_OBJECT = 'sports ball'
         self.DESTINATION_OBJECT = 'bottle'
-        self.model = Yolov4(weight_path='weights/yolov4.weights', class_name_path='class_names/coco_classes.txt')
+        self.model = MinimalYolov4(weight_path='weights/yolov4.weights', class_name_path='class_names/coco_classes.txt')
 
         # Publishers
         self.pub = rospy.Publisher('ball_pos', Quaternion, queue_size=5)
@@ -36,8 +36,7 @@ class YoloNode(object):
                 self.image = cv2.flip(self.image, -1)
                 # cv2.imwrite('/app/cap.jpg', self.image)
 
-                prediction = self.model.predict_img(self.image, plot_img=False, return_output=True)
-                datframe = prediction[1]
+                prediction = self.model.predict(self.image)
                 # msg = [-1.0, -1.0, -1.0, -1.0]
                 msg = Quaternion()
                 msg.x = -1.0
@@ -45,9 +44,9 @@ class YoloNode(object):
                 msg.z = -1.0
                 msg.w = -1.0
 
-                if not datframe.empty:
-                    targets = datframe.loc[datframe['class_name'] == self.TARGET_OBJECT]
-                    destinations = datframe.loc[datframe['class_name'] == self.DESTINATION_OBJECT]
+                if not prediction.empty:
+                    targets = prediction.loc[prediction['class_name'] == self.TARGET_OBJECT]
+                    destinations = prediction.loc[prediction['class_name'] == self.DESTINATION_OBJECT]
 
                     if not targets.empty:
                         sorted_lowest = targets.sort_values('y1', ascending=True)

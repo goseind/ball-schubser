@@ -1,5 +1,5 @@
 import tensorflow as tf
-from tensorflow.keras import layers, initializers, models
+from keras import layers, initializers, models
 
 
 def conv(x, filters, kernel_size, downsampling=False, activation='leaky', batch_norm=True):
@@ -67,34 +67,6 @@ def csp_block(x, residual_out, repeat, residual_bottleneck=False):
 
     x = layers.Concatenate()([x, route])
     return x
-
-
-def darknet53(x):
-    x = conv(x, 32, 3)
-    x = conv(x, 64, 3, downsampling=True)
-
-    for i in range(1):
-        x = residual_block(x, 32, 64)
-    x = conv(x, 128, 3, downsampling=True)
-
-    for i in range(2):
-        x = residual_block(x, 64, 128)
-    x = conv(x, 256, 3, downsampling=True)
-
-    for i in range(8):
-        x = residual_block(x, 128, 256)
-    route_1 = x
-    x = conv(x, 512, 3, downsampling=True)
-
-    for i in range(8):
-        x = residual_block(x, 256, 512)
-    route_2 = x
-    x = conv(x, 1024, 3, downsampling=True)
-
-    for i in range(4):
-        x = residual_block(x, 512, 1024)
-
-    return route_1, route_2, x
 
 
 def cspdarknet53(input):
