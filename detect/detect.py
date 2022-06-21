@@ -5,11 +5,20 @@ from std_msgs.msg import Float64
 from cv_bridge import CvBridge
 import cv2
 
-model = torch.hub.load('ultralytics/yolov5', 'yolov5s')  # or yolov5n - yolov5x6, custom
+# or yolov5n - yolov5x6, custom
+model = torch.hub.load('ultralytics/yolov5', 'yolov5s')
 bridge = CvBridge()
-ball_class=32
-ball_pos=float(-1.0)
-image_detection_running=False
+ball_class = 32
+ball_pos = float(-1.0)
+image_detection_running = False
+
+# CONSTANTS FOR DISTANCE CALCULATION
+SENSOR_HEIGHT = 2.70
+FOCAL_LENGTH = 1.67  # 24
+BALL_HEIGHT = 67
+HEIGHT_CAMERA = 5.8
+WIDTH_CAMERA = 13.3
+
 
 def callback(img: Image):
     global ball_pos_pub, ball_pos, image_detection_running, ball_debug_pub
@@ -17,7 +26,7 @@ def callback(img: Image):
     # if image_detection_running:
     #     return
 
-    image_detection_running=True
+    image_detection_running = True
 
     # rospy.loginfo("Uhh I got a new image")
 
@@ -44,16 +53,31 @@ def callback(img: Image):
         # y2 = int(d['ymax'])
         x_center = int((x1 + x2) / 2)
         if cs == ball_class:
+
+            # X POSITION
+            rel = (BALL_HEIGHT/(x2-x1))
+            pos_X_Pixel = (img.shape[1]/2) - (img.shape[1] - x_center)
+            pos_X = pos_X_Pixel * rel
+
+            # Y POSITION
+            y1 = int(d['ymin'])
+            y2 = int(d['ymax'])
+            heightBallSensor = SENSOR_HEIGHT * ((y2-y1)/heightImg)
+            relation_Height = heightBallSensor/FOCAL_LENGTH
+            pos_Y = BALL_HEIGHT/relation_Height
+
             ball_pos = float(x_center / cv_image.shape[1])
             # rospy.loginfo("I found a ball at %f with confidence %f", ball_pos, con)
             break
-    image_detection_running=False
+    image_detection_running = False
+
 
 def loop():
     global ball_pos_pub, ball_pos
     if rospy.is_shutdown():
         return
     ball_pos_pub.publish(ball_pos)
+
 
 def init():
     global ball_pos_pub, ball_debug_pub
@@ -66,10 +90,11 @@ def init():
     print("done")
     # rospy.spin()
 
-    rate = rospy.Rate(10) # 10hz
+    rate = rospy.Rate(10)  # 10hz
     while not rospy.is_shutdown():
         loop()
         rate.sleep()
+
 
 if __name__ == '__main__':
     try:
