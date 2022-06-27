@@ -6,6 +6,7 @@ from geometry_msgs.msg import Quaternion
 from cv_bridge import CvBridge
 import cv2
 from yolo_minimal import MinimalYolov4
+import yolov5
 
 
 class YoloNode(object):
@@ -15,8 +16,9 @@ class YoloNode(object):
         self.loop_rate = rospy.Rate(10)
         self.TARGET_OBJECT = 'sports ball'
         self.DESTINATION_OBJECT = 'bottle'
-        self.model = MinimalYolov4(
-            weight_path='weights/yolov4.weights', class_name_path='class_names/coco_classes.txt')
+        # self.model = MinimalYolov4(
+        #     weight_path='weights/yolov4.weights', class_name_path='class_names/coco_classes.txt')
+        self.model = yolov5.load('yolov5s.pt')
 
         # Publishers
         self.pub = rospy.Publisher('ball_pos', Quaternion, queue_size=5)
@@ -39,10 +41,11 @@ class YoloNode(object):
     def loop(self):
         while not rospy.is_shutdown():
             if self.image is not None:
-                # tic = time.perf_counter()
-                prediction = self.model.predict(self.image)
-                # toc = time.perf_counter()
-                # print(f"Dtected in {toc - tic:0.4f} seconds")
+                self.image = cv2.flip(self.image, -1)
+                # cv2.imwrite('/app/cap.jpg', self.image)
+
+                # prediction = self.model.predict(self.image)
+                prediction = self.model(self.image).pandas().xyxy[0]
                 # msg = [-1.0, -1.0, -1.0, -1.0]
                 msg = Quaternion()
                 msg.x = -1.0
