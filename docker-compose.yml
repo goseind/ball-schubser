@@ -12,37 +12,37 @@ services:
     #   - 11311:11311
     network_mode: host
 
-  # detect:
-  #   build:
-  #     context: ./docker
-  #     dockerfile: Dockerfile
-  #   command: /watchdog.sh detect.py
-  #   tty: true
-  #   stdin_open: true
-  #   environment:
-  #     ROS_MASTER_URI: http://${MASTER_IP}:11311
-  #     ROS_IP: ${MASTER_IP}
-  #   volumes:
-  #     - ./detect:/app
-  #   network_mode: host
-  #   depends_on:
-  #     - roscore
-
-  detect-v4:
+  detect:
     build:
       context: ./docker
       dockerfile: Dockerfile
-    command: /watchdog.sh yolo-v4-node.py
+    command: /watchdog.sh detect.py
     tty: true
     stdin_open: true
     environment:
       ROS_MASTER_URI: http://${MASTER_IP}:11311
       ROS_IP: ${MASTER_IP}
     volumes:
-      - ./detect/yolo_node:/app
+      - ./detect:/app
     network_mode: host
     depends_on:
       - roscore
+
+  # detect-v4:
+  #   build:
+  #     context: ./docker
+  #     dockerfile: Dockerfile
+  #   command: /watchdog.sh yolo-v4-node.py
+  #   tty: true
+  #   stdin_open: true
+  #   environment:
+  #     ROS_MASTER_URI: http://${MASTER_IP}:11311
+  #     ROS_IP: ${MASTER_IP}
+  #   volumes:
+  #     - ./detect/yolo_node:/app
+  #   network_mode: host
+  #   depends_on:
+  #     - roscore
 
   nav:
     build:

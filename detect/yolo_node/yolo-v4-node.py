@@ -1,5 +1,5 @@
 import time
-from detect.yolo_node.distanceCalculation import get_distance_of_ball
+from distanceCalculation import get_distance_of_ball
 import rospy
 from sensor_msgs.msg import Image
 from geometry_msgs.msg import Quaternion
@@ -39,10 +39,10 @@ class YoloNode(object):
     def loop(self):
         while not rospy.is_shutdown():
             if self.image is not None:
-                tic = time.perf_counter()
+                # tic = time.perf_counter()
                 prediction = self.model.predict(self.image)
-                toc = time.perf_counter()
-                print(f"Dtected in {toc - tic:0.4f} seconds")
+                # toc = time.perf_counter()
+                # print(f"Dtected in {toc - tic:0.4f} seconds")
                 # msg = [-1.0, -1.0, -1.0, -1.0]
                 msg = Quaternion()
                 msg.x = -1.0
@@ -61,7 +61,7 @@ class YoloNode(object):
                             'y1', ascending=True)
 
                         nearest_target = sorted_lowest.iloc[0]
-                        print('found: ', nearest_target)
+                        print('found: ', nearest_target["class_name"])
                         x1 = nearest_target['x1']
                         w = nearest_target['w']
                         h = nearest_target['h']

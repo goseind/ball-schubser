@@ -68,6 +68,7 @@ Dependencies:
 
 * The default user `ubuntu` on the Turtlebot image does not have the proper `tty` permissions. The problem could be solved by adding `ubuntu` to `root` user group, by executing: `sudo usermod -aG root ubuntu`, as the normal group used for that called `dialout` was not set for `tty`.
 * ROS machines must have a resolved DNS name as they communicate with each other, see: http://wiki.ros.org/ROS/NetworkSetup.
+* Router nicht mit Internet verbinden
 
 ### Detection Setup on Pi
 ```

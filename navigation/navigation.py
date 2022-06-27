@@ -5,38 +5,42 @@ from geometry_msgs.msg import Quaternion
 # from std_msgs.msg import Float64
 
 angle=0 # steering between -3.0 and 3.0 (negative left)
-speed=0 # speed between 1.0 and -1.0 (negative reverse)
-last_ball_pos=0
-search_speed=0.5
+current_speed=0 # speed between 1.0 and -1.0 (negative reverse)
+speed=1
+angle_factor=1.2
+search_speed=0.6
+last_target_pos=0
+caught = False
 
 def callback(pos: Quaternion):
-    global angle, speed, last_ball_pos
+    global angle, current_speed, last_target_pos, caught
 
-    ball_pos = pos.z if pos.y >= 0.80 else pos.x
+    caught = caught or (pos.y >= 0.70)
+    target_pos = pos.z if caught else pos.x
     # ball_pos = pos.x
-    print(str(pos.x) + ", " + str(pos.y) + ", " + str(pos.z) + ", " + str(pos.w) + ": " + str(ball_pos))
-    print("bottle" if pos.y >= 0.80 else "ball")
+    print(str(pos.x) + ", " + str(pos.y) + ", " + str(pos.z) + ", " + str(pos.w) + ": " + str(target_pos))
+    print("bottle" if caught else "ball")
 
     # ball_pos = -0.1
-    if ball_pos == -1.0:
-        speed=0
-        if last_ball_pos >= 0.5:
+    if target_pos == -1.0:
+        current_speed=0
+        if last_target_pos >= 0.5:
             angle=search_speed
         else:
             angle=-search_speed
         # angle=0.25
-    if ball_pos > 0 and ball_pos <= 1.0:
+    if target_pos > 0 and target_pos <= 1.0:
         # rospy.loginfo("I heard %f", ball_pos)
-        last_ball_pos=ball_pos
-        speed=1.0
-        angle=(ball_pos - 0.5) * -3.0 # map 0 - 1.0 => -3.0 - 3.0
+        last_target_pos=target_pos
+        current_speed=speed
+        angle=(target_pos - 0.5) * -3.0 * angle_factor # map 0 - 1.0 => -3.0 - 3.0
 
 def loop():
-    global cmd_pub, angle, speed
+    global cmd_pub, angle, current_speed
     if rospy.is_shutdown():
         return
     twist = Twist()
-    twist.linear.x = speed
+    twist.linear.x = current_speed
     twist.angular.z = angle
     cmd_pub.publish(twist)
 
