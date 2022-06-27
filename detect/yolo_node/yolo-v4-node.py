@@ -68,10 +68,10 @@ class YoloNode(object):
                         msg.x = x_center / self.image.shape[1]
                         msg.y = y2 / self.image.shape[0]
 
-                        pos = get_distance_of_ball(
-                            w, h, x1, self.image.shape[1], self.image.shape[0])
-                        msg.x = pos.x
-                        msg.y = pos.y
+                        # pos = get_distance_of_ball(
+                        #     w, h, x1, self.image.shape[1], self.image.shape[0])
+                        # msg.x = pos.x
+                        # msg.y = pos.y
 
                     if not destinations.empty:
 
@@ -88,12 +88,12 @@ class YoloNode(object):
                         msg.z = x_center / self.image.shape[1]
                         msg.w = y2 / self.image.shape[0]
 
-                        pos = get_distance_of_ball(
-                            w, h, x1, self.image.shape[1], self.image.shape[0])
+                        #pos = get_distance_of_ball(
+                        #    w, h, x1, self.image.shape[1], self.image.shape[0])
+                        #msg.z = pos.x
+                        #msg.w = pos.y
 
-                        msg.z = pos.x
-                        msg.w = pos.y
-
+                self.image = None
                 self.pub.publish(msg)
             self.loop_rate.sleep()
 
