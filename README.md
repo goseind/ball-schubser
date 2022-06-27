@@ -86,3 +86,38 @@ catkin_make
 # to start raspi cam run following script in home
 ./cam.sh
 ```
+
+## Raspberry Pi Preparation
+
+To prepare the image for the Raspberry Pi follow these instructions: https://emanual.robotis.com/docs/en/platform/turtlebot3/sbc_setup/#sbc-setup
+
+After the micro SD card is ready, boot it from your Turtlebot, connect via SSH: `ssh ubuntu@<TURTLEBOT IP>` and do the following:
+
+1. Run: `sudo usermod -aG root ubuntu` to make the user root (see Lessons Learned).
+2. Add your network to the `/etc/netplan/50-cloud-init.yaml` or prepare and copy it via SCP: `scp 50-cloud-init.yaml ubuntu@<TURTLEBOT IP>:/etc/netplan/50-cloud-init.yaml`.
+3. Edit: `nano ~/.bashrc` to add the below variables and: `source ~/.bashrc`.
+   
+   ```bash
+   export ROS_MASTER_URI=http://<REMOTE PC IP>:11311
+   export ROS_HOSTNAME=<TURTLEBOT IP>
+   ```
+
+4. Install Raspberry Pi Cam and dependencies with the following commands:
+   
+   ```bash
+   sudo apt install libraspberrypi-dev libraspberrypi0 libpigpiod-if-dev ros-noetic-compressed-image-transport ros-noetic-camera-info-manager ros-noetic-diagnostic-updater
+   cd ~/catkin/src
+   git clone https://github.com/UbiquityRobotics/raspicam_node
+   catkin_make
+   ```
+
+5. Run: `export TURTLEBOT3_MODEL=Burger` to set the Turtlebot model.
+6. Start without LIDAR sensor: `roslaunch turtlebot3_bringup turtlebot3_core.launch`.
+7. Start the Cam via:
+   
+   ```bash
+   rosparam set cv_camera/device_id 0
+   rosrun cv_camera cv_camera_node
+   ```
+
+For step 5, 6 and 7 you can also use the provided [Makefile](Makefile) and run `make start-everything`.
