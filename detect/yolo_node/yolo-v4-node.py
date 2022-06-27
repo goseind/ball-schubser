@@ -27,7 +27,7 @@ class YoloNode(object):
         # rospy.loginfo('Image received...')
         img = self.imageBridge.imgmsg_to_cv2(msg)
         self.image = cv2.flip(img, -1)
-        cv2.imwrite('/app/cap.jpg', self.image)
+        # cv2.imwrite('/app/cap.jpg', self.image)
 
     def start(self):
         rospy.loginfo("Starting target calculation...")
