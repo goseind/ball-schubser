@@ -1,7 +1,7 @@
 import torch
 import rospy
 from sensor_msgs.msg import Image
-from std_msgs.msg import Float64
+from std_msgs.msg import Float64MultiArray
 from cv_bridge import CvBridge
 import cv2
 
@@ -9,8 +9,11 @@ import cv2
 model = torch.hub.load('ultralytics/yolov5', 'yolov5s')
 bridge = CvBridge()
 ball_class = 32
-ball_pos = float(-1.0)
+ball_pos = [float(0.0), float(-1.0)]
 image_detection_running = False
+
+pos_X = -1
+pos_Y = -1
 
 # CONSTANTS FOR DISTANCE CALCULATION
 SENSOR_HEIGHT = 2.70
@@ -42,7 +45,7 @@ def callback(img: Image):
     # results.print()
     p = results.pandas().xyxy[0]
     detections = p.to_dict(orient="records")
-    ball_pos = float(-1.0)
+    ball_pos = [float(0.0), float(-1.0)]
 
     for d in detections:
         con = d['confidence']
@@ -66,7 +69,8 @@ def callback(img: Image):
             relation_Height = heightBallSensor/FOCAL_LENGTH
             pos_Y = BALL_HEIGHT/relation_Height
 
-            ball_pos = float(x_center / cv_image.shape[1])
+            ball_pos = [pos_X, pos_Y]
+            #float(x_center / cv_image.shape[1])
             # rospy.loginfo("I found a ball at %f with confidence %f", ball_pos, con)
             break
     image_detection_running = False
@@ -82,8 +86,8 @@ def loop():
 def init():
     global ball_pos_pub, ball_debug_pub
 
-    ball_pos_pub = rospy.Publisher('ball_pos', Float64, queue_size=5)
-    # ball_debug_pub = rospy.Publisher('ball_debug', Image, queue_size=10)
+    ball_pos_pub = rospy.Publisher('ball_pos', Float64MultiArray, queue_size=10)
+    ball_debug_pub = rospy.Publisher('ball_debug', Image, queue_size=10)
     rospy.init_node('ball_schubser_detect', anonymous=True)
     rospy.Subscriber("cv_camera/image_raw", Image, callback)
     rospy.loginfo("Starting detection node ...")
