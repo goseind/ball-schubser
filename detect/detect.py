@@ -1,24 +1,19 @@
 import torch
 import rospy
 from sensor_msgs.msg import Image
-from std_msgs.msg import Float64MultiArray
 from cv_bridge import CvBridge
-from geometry_msgs.msg import Quaternion
+from geometry_msgs.msg import Vector3
 import cv2
-import time
 
 # or yolov5n - yolov5x6, custom
 model = torch.hub.load('ultralytics/yolov5', 'yolov5s')
 bridge = CvBridge()
 ball_class = 32
-bottle_class = 39 # TODO
-image_detection_running = False
+bottle_class = 39
+cup_class = 41
+wine_glass = 40
 
-pos = Quaternion()
-pos.x = -1.0
-pos.y = -1.0
-pos.z = -1.0
-pos.w = -1.0
+image_detection_running = False
 
 # CONSTANTS FOR DISTANCE CALCULATION
 SENSOR_HEIGHT = 2.70
@@ -28,9 +23,6 @@ HEIGHT_CAMERA = 5.8
 WIDTH_CAMERA = 13.3
 
 def callback(img: Image):
-    # print time
-    print("Found {}".format(time.localtime().tm_sec))
-
     global image_detection_running, pos, debug_pub, pos_pub
 
     if image_detection_running:
@@ -42,9 +34,7 @@ def callback(img: Image):
 
     cv_image1 = bridge.imgmsg_to_cv2(img, desired_encoding='passthrough')
     cv_image = cv2.flip(cv_image1, -1)
-    # cv2.imwrite('/app/cap.jpg', cv_image)
-    # image_message = bridge.cv2_to_imgmsg(cv_image, encoding="passthrough")
-    # debug_pub.publish(image_message)
+    debug_image = cv_image.copy()
 
     # Inference
     results = model(cv_image)
@@ -52,19 +42,15 @@ def callback(img: Image):
     # results.print()
     p = results.pandas().xyxy[0]
     detections = p.to_dict(orient="records")
-    pos.x = -1.0
-    pos.y = -1.0
-    pos.z = -1.0
-    pos.w = -1.0
 
     found = False
-    print("")
     for d in detections:
         con = d['confidence']
         cs = d['class']
-        if (cs == ball_class or cs == bottle_class) and con > 0.1:
+        # if (cs == ball_class or cs == bottle_class or cs == cup_class) and con > 0.1:
+        if (cs == ball_class or cs == bottle_class or cs == cup_class or cs == wine_glass) and con > 0.1:
             found = True
-            print(cs)
+            # print("detected: " + toClass(cs))
             x1 = int(d['xmin'])
             x2 = int(d['xmax'])
             y1 = int(d['ymin'])
@@ -73,18 +59,49 @@ def callback(img: Image):
             x_center = float(x_center / cv_image.shape[1])
             y_center = int((y1 + y2) / 2)
             y_center = float(y_center / cv_image.shape[0])
-            if cs == ball_class:
-                pos.x = x_center
-                pos.y = y_center
-            if cs == bottle_class:
-                pos.z = x_center
-                pos.w = y_center
+            cv2.rectangle(debug_image, (x1, y1), (x2, y2), classToColor(cs), 2)
+            label = "{} {:.2f}%".format(toClass(cs), con)
+            cv2.putText(debug_image, label, (x1, y1), cv2.FONT_HERSHEY_SIMPLEX, 1, classToColor(cs), 2)
+            pos = Vector3()
+            pos.x = x_center
+            pos.y = y2 / cv_image.shape[0]
+            pos.z = cs
+            pos_pub.publish(pos)
     image_detection_running = False
-    if not found:
-        print("Boring image")
-    pos_pub.publish(pos)
+    debug_pub.publish(bridge.cv2_to_imgmsg(debug_image, encoding="passthrough"))
 
-    print("Finished {}".format(time.localtime().tm_sec))
+    if not found:
+        pos = Vector3()
+        pos.x = -1
+        pos.y = -1
+        pos.z = -1
+        pos_pub.publish(pos)
+
+    # print("Finished {}".format(time.localtime().tm_sec))
+
+def toClass(x):
+    if x == ball_class:
+        return "ball"
+    elif x == bottle_class:
+        return "bottle"
+    elif x == cup_class:
+        return "cup"
+    elif x == wine_glass:
+        return "wine glass"
+    else:
+        return "unknown"
+
+def classToColor(x):
+    if x == ball_class:
+        return (0, 255, 0)
+    elif x == bottle_class:
+        return (0, 0, 255)
+    elif x == cup_class:
+        return (255, 0, 0)
+    elif x == wine_glass:
+        return (0, 255, 255)
+    else:
+        return (0, 0, 0)
 
 def loop():
     global pos_pub
@@ -94,8 +111,8 @@ def loop():
 def init():
     global pos_pub, debug_pub
 
-    pos_pub = rospy.Publisher('ball_pos', Quaternion, queue_size=10)
-    debug_pub = rospy.Publisher('ball_image', Image, queue_size=10)
+    pos_pub = rospy.Publisher('ball_pos', Vector3, queue_size=10)
+    debug_pub = rospy.Publisher('debug_image', Image, queue_size=1)
     rospy.init_node('ball_schubser_detect', anonymous=True)
     rospy.Subscriber("cv_camera/image_raw", Image, callback)
     rospy.loginfo("Starting detection node ...")

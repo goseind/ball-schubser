@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <link rel="shortcut icon" href="/favicon.svg" />
+
+    <style>
+      * {
+        margin: 0;
+      }
+      body {
+        background-color: #000;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      h3 {
+        color: #fff;
+        text-align: center;
+        margin-top: 1rem;
+        margin-bottom: 3rem;
+        font-size: 2rem;
+      }
+      .img {
+        display: flex;
+        flex-grow: 1;
+        min-height: 0;
+      }
+      img {
+        object-fit: contain;
+      }
+    </style>
+
+    <title>Ball Schubser Cockpit</title>
+  </head>
+  <body>
+    <h3>Ball Schubser Cockpit</h3>
+    <div class="img">
+      <img src="{{ url_for('stream') }}" width="100%" />
+    </div>
+  </body>
+</html>

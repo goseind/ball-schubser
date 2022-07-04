@@ -28,22 +28,6 @@ services:
     depends_on:
       - roscore
 
-  # detect-v4:
-  #   build:
-  #     context: ./docker
-  #     dockerfile: Dockerfile
-  #   command: /watchdog.sh yolo-v4-node.py
-  #   tty: true
-  #   stdin_open: true
-  #   environment:
-  #     ROS_MASTER_URI: http://${MASTER_IP}:11311
-  #     ROS_IP: ${MASTER_IP}
-  #   volumes:
-  #     - ./detect/yolo_node:/app
-  #   network_mode: host
-  #   depends_on:
-  #     - roscore
-
   nav:
     build:
       context: ./docker
@@ -56,6 +40,22 @@ services:
       ROS_IP: ${MASTER_IP}
     volumes:
       - ./navigation:/app
+    network_mode: host
+    depends_on:
+      - roscore
+
+  cockpit:
+    build:
+      context: ./docker
+      dockerfile: Dockerfile
+    command: /watchdog.sh cockpit.py
+    tty: true
+    stdin_open: true
+    environment:
+      ROS_MASTER_URI: http://${MASTER_IP}:11311
+      ROS_IP: ${MASTER_IP}
+    volumes:
+      - ./cockpit:/app
     network_mode: host
     depends_on:
       - roscore
