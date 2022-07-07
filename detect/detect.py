@@ -61,7 +61,8 @@ def callback(img: Image):
             y_center = float(y_center / cv_image.shape[0])
             cv2.rectangle(debug_image, (x1, y1), (x2, y2), classToColor(cs), 2)
             label = "{} {:.2f}%".format(toClass(cs), con)
-            cv2.putText(debug_image, label, (x1, y1), cv2.FONT_HERSHEY_SIMPLEX, 1, classToColor(cs), 2)
+            label_y = y1 if y1 > 24 else y2 + 24
+            cv2.putText(debug_image, label, (x1, label_y), cv2.FONT_HERSHEY_SIMPLEX, 1, classToColor(cs), 2)
             pos = Vector3()
             pos.x = x_center
             pos.y = y2 / cv_image.shape[0]
