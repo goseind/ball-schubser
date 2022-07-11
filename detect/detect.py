@@ -1,3 +1,4 @@
+from typing import List
 import torch
 import rospy
 from sensor_msgs.msg import Image
@@ -40,34 +41,43 @@ def callback(img: Image):
     results = model(cv_image)
 
     # results.print()
-    p = results.pandas().xyxy[0]
-    detections = p.to_dict(orient="records")
+    r = results.pandas().xyxy[0]
+    predictions = r.to_dict(orient="records")
 
     found = False
-    for d in detections:
-        con = d['confidence']
-        cs = d['class']
-        # if (cs == ball_class or cs == bottle_class or cs == cup_class) and con > 0.1:
-        if (cs == ball_class or cs == bottle_class or cs == cup_class or cs == wine_glass) and con > 0.1:
-            found = True
-            # print("detected: " + toClass(cs))
-            x1 = int(d['xmin'])
-            x2 = int(d['xmax'])
-            y1 = int(d['ymin'])
-            y2 = int(d['ymax'])
-            x_center = int((x1 + x2) / 2)
-            x_center = float(x_center / cv_image.shape[1])
-            y_center = int((y1 + y2) / 2)
-            y_center = float(y_center / cv_image.shape[0])
-            cv2.rectangle(debug_image, (x1, y1), (x2, y2), classToColor(cs), 2)
-            label = "{} {:.2f}%".format(toClass(cs), con)
-            label_y = y1 if y1 > 24 else y2 + 24
-            cv2.putText(debug_image, label, (x1, label_y), cv2.FONT_HERSHEY_SIMPLEX, 1, classToColor(cs), 2)
-            pos = Vector3()
-            pos.x = x_center
-            pos.y = y2 / cv_image.shape[0]
-            pos.z = cs
-            pos_pub.publish(pos)
+
+    if predictions:
+        balls: List = filter(lambda p: p['class'] == ball_class, predictions)
+        detections: List = filter(lambda p: p['class'] != ball_class, predictions)
+
+        if len(balls) > 0:
+            detections.append(balls.sort(key=lambda e: e['y1'], reverse=True)[0])
+
+        for d in detections:
+            con = d['confidence']
+            cs = d['class']
+            # if (cs == ball_class or cs == bottle_class or cs == cup_class) and con > 0.1:
+            if (cs == ball_class or cs == bottle_class or cs == cup_class or cs == wine_glass) and con > 0.1:
+                found = True
+                # print("detected: " + toClass(cs))
+                x1 = int(d['xmin'])
+                x2 = int(d['xmax'])
+                y1 = int(d['ymin'])
+                y2 = int(d['ymax'])
+                x_center = int((x1 + x2) / 2)
+                x_center = float(x_center / cv_image.shape[1])
+                y_center = int((y1 + y2) / 2)
+                y_center = float(y_center / cv_image.shape[0])
+                cv2.rectangle(debug_image, (x1, y1), (x2, y2), classToColor(cs), 2)
+                label = "{} {:.2f}%".format(toClass(cs), con)
+                label_y = y1 if y1 > 24 else y2 + 24
+                cv2.putText(debug_image, label, (x1, label_y), cv2.FONT_HERSHEY_SIMPLEX, 1, classToColor(cs), 2)
+                pos = Vector3()
+                pos.x = x_center
+                pos.y = y2 / cv_image.shape[0]
+                pos.z = cs
+                pos_pub.publish(pos)
+
     image_detection_running = False
     debug_pub.publish(bridge.cv2_to_imgmsg(debug_image, encoding="passthrough"))
 
