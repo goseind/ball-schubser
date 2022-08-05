@@ -1,0 +1,56 @@
+<mxfile host="65bd71144e">
+    <diagram id="N7kFsLUI7DPXq_OgNVCy" name="network_setuo">
+        <mxGraphModel dx="1145" dy="882" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="5uWAnqHbDmkjdx9ng6SV-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" parent="1" source="5uWAnqHbDmkjdx9ng6SV-1" target="5uWAnqHbDmkjdx9ng6SV-2" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="5uWAnqHbDmkjdx9ng6SV-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" parent="1" source="5uWAnqHbDmkjdx9ng6SV-1" target="5uWAnqHbDmkjdx9ng6SV-5" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="5uWAnqHbDmkjdx9ng6SV-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" parent="1" source="5uWAnqHbDmkjdx9ng6SV-1" target="5uWAnqHbDmkjdx9ng6SV-11" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="5uWAnqHbDmkjdx9ng6SV-1" value="Router" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;strokeColor=#232F3E;fillColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.router;" parent="1" vertex="1">
+                    <mxGeometry x="384" y="260" width="60" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="5uWAnqHbDmkjdx9ng6SV-2" value="Internet" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="354" y="120" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="5uWAnqHbDmkjdx9ng6SV-14" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" parent="1" source="5uWAnqHbDmkjdx9ng6SV-5" target="5uWAnqHbDmkjdx9ng6SV-13" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="5uWAnqHbDmkjdx9ng6SV-5" value="Remote PC&lt;br&gt;(Notebook)" style="sketch=0;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;fillColor=#505050;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;outlineConnect=0;align=center;shape=mxgraph.office.devices.laptop;" parent="1" vertex="1">
+                    <mxGeometry x="490" y="377" width="58" height="34" as="geometry"/>
+                </mxCell>
+                <mxCell id="5uWAnqHbDmkjdx9ng6SV-11" value="TurtleBot&lt;br&gt;(Raspberry Pi)" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;strokeColor=#232F3E;fillColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.hardware_board;" parent="1" vertex="1">
+                    <mxGeometry x="290" y="364" width="60" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="5uWAnqHbDmkjdx9ng6SV-13" value="Docker Container&lt;br&gt;(host network)" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn0.iconfinder.com/data/icons/social-media-2104/24/social_media_social_media_logo_docker-128.png;strokeColor=#0db7ed;fillColor=#0DB7ED;" parent="1" vertex="1">
+                    <mxGeometry x="600" y="364" width="60" height="60" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram id="GYqA0iKEIof3ib75Sk1x" name="navigation">
+        <mxGraphModel dx="1145" dy="882" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="uI_jkbLfS4lVOkZ_wGY0-0"/>
+                <mxCell id="uI_jkbLfS4lVOkZ_wGY0-1" parent="uI_jkbLfS4lVOkZ_wGY0-0"/>
+                <mxCell id="xAvLtei4nqubrgY7evRn-0" value="" style="html=1;dashed=0;whitespace=wrap;shape=mxgraph.dfd.loop" vertex="1" parent="uI_jkbLfS4lVOkZ_wGY0-1">
+                    <mxGeometry x="170" y="400" width="80" height="30" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram id="iyv2KdPR3YlmRDOZlvnY" name="docker">
+        <mxGraphModel dx="1145" dy="882" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="wlFTbynYSo1CQGIzl9f9-0"/>
+                <mxCell id="wlFTbynYSo1CQGIzl9f9-1" parent="wlFTbynYSo1CQGIzl9f9-0"/>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
