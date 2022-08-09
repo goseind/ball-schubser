@@ -2,9 +2,9 @@
 
 A robot 🤖 that pushes a ball 🥎 (into a goal 🥅).
 
-YouTube Demo Video: https://youtube.com/shorts/7FWXAeur2QE?feature=share
+YouTube Demo Video: https://youtu.be/InvO-HXr4YA
 
-[<img src="media/ball-schubser_front_1.jpg" width="400"/>](media/ball-schubser_front_1.jpg)
+[<img src="media/ball-schubser_front_1.jpg" width="400"/>](media/ball-schubser_front_side_new_desc.jpg)
 
 ## Startup Instructions
 
