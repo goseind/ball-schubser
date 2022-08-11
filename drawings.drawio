@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
-    <diagram id="N7kFsLUI7DPXq_OgNVCy" name="network_setuo">
-        <mxGraphModel dx="1145" dy="882" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <diagram id="N7kFsLUI7DPXq_OgNVCy" name="network_setup">
+        <mxGraphModel dx="441" dy="429" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -31,25 +31,6 @@
                 <mxCell id="5uWAnqHbDmkjdx9ng6SV-13" value="Docker Container&lt;br&gt;(host network)" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn0.iconfinder.com/data/icons/social-media-2104/24/social_media_social_media_logo_docker-128.png;strokeColor=#0db7ed;fillColor=#0DB7ED;" parent="1" vertex="1">
                     <mxGeometry x="600" y="364" width="60" height="60" as="geometry"/>
                 </mxCell>
-            </root>
-        </mxGraphModel>
-    </diagram>
-    <diagram id="GYqA0iKEIof3ib75Sk1x" name="navigation">
-        <mxGraphModel dx="1145" dy="882" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
-            <root>
-                <mxCell id="uI_jkbLfS4lVOkZ_wGY0-0"/>
-                <mxCell id="uI_jkbLfS4lVOkZ_wGY0-1" parent="uI_jkbLfS4lVOkZ_wGY0-0"/>
-                <mxCell id="xAvLtei4nqubrgY7evRn-0" value="" style="html=1;dashed=0;whitespace=wrap;shape=mxgraph.dfd.loop" vertex="1" parent="uI_jkbLfS4lVOkZ_wGY0-1">
-                    <mxGeometry x="170" y="400" width="80" height="30" as="geometry"/>
-                </mxCell>
-            </root>
-        </mxGraphModel>
-    </diagram>
-    <diagram id="iyv2KdPR3YlmRDOZlvnY" name="docker">
-        <mxGraphModel dx="1145" dy="882" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
-            <root>
-                <mxCell id="wlFTbynYSo1CQGIzl9f9-0"/>
-                <mxCell id="wlFTbynYSo1CQGIzl9f9-1" parent="wlFTbynYSo1CQGIzl9f9-0"/>
             </root>
         </mxGraphModel>
     </diagram>
