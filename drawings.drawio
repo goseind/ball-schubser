@@ -19,8 +19,10 @@
                 <mxCell id="5uWAnqHbDmkjdx9ng6SV-2" value="Internet" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="354" y="120" width="120" height="80" as="geometry"/>
                 </mxCell>
-                <mxCell id="5uWAnqHbDmkjdx9ng6SV-14" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" parent="1" source="5uWAnqHbDmkjdx9ng6SV-5" target="5uWAnqHbDmkjdx9ng6SV-13" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
+                <mxCell id="5uWAnqHbDmkjdx9ng6SV-14" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" parent="1" source="5uWAnqHbDmkjdx9ng6SV-5" target="P92AYV_UDR6tzKyo27Ke-1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="600" y="394" as="targetPoint"/>
+                    </mxGeometry>
                 </mxCell>
                 <mxCell id="5uWAnqHbDmkjdx9ng6SV-5" value="Remote PC&lt;br&gt;(Notebook)" style="sketch=0;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;fillColor=#505050;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;outlineConnect=0;align=center;shape=mxgraph.office.devices.laptop;" parent="1" vertex="1">
                     <mxGeometry x="490" y="377" width="58" height="34" as="geometry"/>
@@ -28,8 +30,8 @@
                 <mxCell id="5uWAnqHbDmkjdx9ng6SV-11" value="TurtleBot&lt;br&gt;(Raspberry Pi)" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;strokeColor=#232F3E;fillColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.hardware_board;" parent="1" vertex="1">
                     <mxGeometry x="290" y="364" width="60" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="5uWAnqHbDmkjdx9ng6SV-13" value="Docker Container&lt;br&gt;(host network)" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn0.iconfinder.com/data/icons/social-media-2104/24/social_media_social_media_logo_docker-128.png;strokeColor=#0db7ed;fillColor=#0DB7ED;" parent="1" vertex="1">
-                    <mxGeometry x="600" y="364" width="60" height="60" as="geometry"/>
+                <mxCell id="P92AYV_UDR6tzKyo27Ke-1" value="Container Setup" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;strokeColor=#232F3E;fillColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.container_1;" vertex="1" parent="1">
+                    <mxGeometry x="610" y="364" width="60" height="60" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
