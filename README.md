@@ -2,9 +2,9 @@
 
 A robot 🤖 that pushes a ball 🥎 (into a goal 🥅).
 
-YouTube Demo Video: https://youtu.be/InvO-HXr4YA
+[<img src="media/ball-schubser_front_side_new_desc.jpg" width="400"/>](media/ball-schubser_front_side_new_desc.jpg)
 
-[<img src="media/ball-schubser_front_1.jpg" width="400"/>](media/ball-schubser_front_side_new_desc.jpg)
+**Check out the paper we published here: [Development of an Autonomous Robot for Detecting and Collecting Objects](paper/Term-Paper_v1.pdf) and the Demo Video here: [Demo Video - Ball Schubser](https://youtu.be/InvO-HXr4YA)**
 
 ## Startup Instructions
 
