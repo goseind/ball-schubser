@@ -8,19 +8,19 @@ A robot 🤖 that pushes a ball 🥎 (into a goal 🥅).
 
 ## Startup Instructions
 
-1. git pull
+1. Clone this repo
 2. Inside `.env` add `MASTER_IP=<your-ip>`
 3. Run `docker-compose up -d --remove-orphans`
-4. Start Turtlebot and connect to via SSH `ssh ubuntu@192.168.31.4` with default password: `turtlebot`
+4. Start Turtlebot and connect to via SSH `ssh ubuntu@<your-ip>` with default password: `turtlebot`
 5. Set `export ROS_MASTER_URI=<your-ip>`
 6. Run `sh ~/launch.sh`
 7. Run `sh ~/cam.sh`
  
-### Simplified
+### Simplified (beta)
 
-1. git pull
-2. execute `export BIP=<your bots ip> && export MIP=<your pc ip>`
-3. execute `make everything`
+1. Clone this repo
+2. Execute `export BIP=<your bots ip> && export MIP=<your pc ip>`
+3. Execute `start-everything`
 
 ## Raspberry Pi 🐢 bot Preparation
 
