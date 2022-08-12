@@ -1,0 +1,68 @@
+\documentclass[conference,compsoc,final,a4paper]{IEEEtran}
+\usepackage[utf8]{inputenx}
+
+%% Bitte legen Sie hier den Titel und den Autor der Arbeit fest
+\newcommand{\autoren}[0]{Anton Bracke, Jannis Seefeld, Domenic Gosein, Maximilian Kürschner, Jan Mayer}
+\newcommand{\dokumententitel}[0]{Development of an Autonomous Robot for Detecting and Collecting Objects}
+
+\input{preambel} % Weitere Einstellungen aus einer anderen Datei lesen
+\addbibresource{literatur.bib}   % BibLaTeX-Datei mit Literaturquellen einbinden
+
+\begin{document}
+
+% Titel des Dokuments
+\title{\dokumententitel}
+
+% Namen der Autoren
+\author{
+  \IEEEauthorblockN{\autoren}
+  \IEEEauthorblockA{
+    University of Applied Sciences Mannheim\\
+    Department of Computer Science\\
+    Paul-Wittsack-Str. 10,
+    68163 Mannheim
+    }
+}
+
+% Titel erzeugen
+\maketitle
+\thispagestyle{plain}
+\pagestyle{plain}
+
+% Eigentliches Dokument beginnt hier
+% ----------------------------------------------------------------------------------------------------------
+
+% Kurze Zusammenfassung des Dokuments
+\input{chapters/abstract}
+
+% Inhaltsverzeichnis erzeugen
+{\small\tableofcontents}
+
+\input{chapters/intro}
+\input{chapters/basics}
+\input{chapters/turtlebot-setup}
+\input{chapters/detection}
+\input{chapters/positioncalculation}
+\input{chapters/conclusion}
+
+\section*{Acronyms}
+\addcontentsline{toc}{section}{Acronyms}
+\input{chapters/acronyms}
+
+\addcontentsline{toc}{section}{List of Tables}
+\listoftables
+
+\addcontentsline{toc}{section}{List of Figures}
+\listoffigures
+
+\addcontentsline{toc}{section}{List of Listings}
+\lstlistoflistings
+
+% Literaturverzeichnis
+\addcontentsline{toc}{section}{Literature}
+\printbibliography
+
+\appendix
+\input{chapters/appendix}
+
+\end{document}

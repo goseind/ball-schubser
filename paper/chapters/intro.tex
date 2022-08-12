@@ -1,0 +1,11 @@
+\section{Introduction}
+
+According to the Cambridge Dictionary, a robot is \enquote{a machine controlled by a computer that is used to perform jobs automatically} \autocite{dict-cambridge}. In the past years, the performance of those computers has increased while the size has decreased drastically. This recent development allows us to make use of some fascinating technologies like object recognition through neural nets. Object recognition or detection is part of computer vision and tries to simulate human vision through computational models. This technology can be used to build autonomous systems like cars or robots.
+
+For this project, a pre-configured robot setup called Turtlebot Burger is used, which is a standard ROS-based robot platform \autocite{emanual-turtlebot3-ov}. The Robot Operating System (ROS) consists of a set of libraries and tools for building and running robots \autocite{ros-technical-overview}. The robot is additionally equipped with a camera for object detection and a fork to pick up detected objects along the way. YOLOv5 is used for object detection on the robot. It is a pre-trained neural net that only has to look at an image once to determine the objects inside it and thus is really fast and reliable \autocite{ultralytics}.
+
+A containerized setup and code reload mechanism allowed for new ideas to be implemented and tested immediately on the running system.
+
+The goal of this project is to see how good object recognition works with a minimal setup, resources, and a short amount of time to build. The scope of the project is purposely restricted to make use of only one front camera and avoid the usage of additional third-person cameras or sensors to show the great possibilities of such a minimal setup.
+
+The test object is a tennis ball, which the robot should detect, collect and transport to a goal (object) of choice --- in this case a bottle. The paper starts by explaining the different components, technical setup, and navigation and the second half covers object detection.

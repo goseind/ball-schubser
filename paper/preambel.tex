@@ -1,0 +1,102 @@
+% Hie muss normalerweise nichts angepasst werden
+\usepackage[pdftex]{graphicx}
+\graphicspath{{img/}}
+\DeclareGraphicsExtensions{.pdf,.jpeg,.jpg,.png}
+\usepackage[cmex10]{amsmath}
+\usepackage{algorithmic}
+\usepackage{array}
+\usepackage{dblfloatfix}
+\usepackage{url}
+\usepackage[autostyle=true,english=american]{csquotes}
+\usepackage[backend=biber,
+            sorting=none,   % Keine Sortierung
+            doi=true,       % DOI anzeigen
+            isbn=false,     % ISBN nicht anzeigen
+            url=true,       % URLs anzeigen
+            maxnames=6,     % Ab 6 Autoren et al. verwenden
+            minnames=1,     % und nur den ersten Autor angeben
+            style=ieee,]{biblatex}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{listings}             % Source Code listings
+\usepackage[printonlyused]{acronym}
+\usepackage{fancyvrb}
+\usepackage{tocloft} % Schönere Inhaltsverzeichnisse
+
+\usepackage[main=english, ngerman]{babel} % Englische Sprachunterstützung
+
+\usepackage{tabularx}             % Spezielle Tabellen
+\usepackage{svg}
+
+% Farben definieren
+\definecolor{linkblue}{RGB}{0, 0, 100}
+\definecolor{linkblack}{RGB}{0, 0, 0}
+\definecolor{darkgreen}{RGB}{14, 144, 102}
+\definecolor{darkblue}{RGB}{0,0,168}
+\definecolor{darkred}{RGB}{128,0,0}
+\definecolor{comment}{RGB}{63, 127, 95}
+\definecolor{javadoccomment}{RGB}{63, 95, 191}
+\definecolor{keyword}{RGB}{108, 0, 67}
+\definecolor{type}{RGB}{0, 0, 0}
+\definecolor{method}{RGB}{0, 0, 0}
+\definecolor{variable}{RGB}{0, 0, 0}
+\definecolor{literal}{RGB}{31,0, 255}
+\definecolor{operator}{RGB}{0, 0, 0}
+
+\usepackage[
+      unicode=true,
+      hypertexnames=false,
+      colorlinks=true,
+      colorlinks=false,
+      linkcolor=darkblue,
+      citecolor=darkblue,
+      urlcolor=darkblue,
+      pdftex
+   ]{hyperref}
+%	 \PrerenderUnicode{ü}
+
+
+% Einstellungen für Quelltexte
+\lstset{
+    xleftmargin=0.1cm,
+    basicstyle=\scriptsize\ttfamily,
+    keywordstyle=\color{keyword},
+    identifierstyle=\color{variable},
+    commentstyle=\color{comment},
+    stringstyle=\color{literal},
+    tabsize=2,
+    lineskip={2pt},
+    columns=flexible,
+    inputencoding=utf8,
+    captionpos=b,
+    breakautoindent=true,
+    breakindent=2em,
+    breaklines=true,
+    prebreak=,
+    postbreak=,
+    numbers=none,
+    numberstyle=\tiny,
+    showspaces=false,      % Keine Leerzeichensymbole
+    showtabs=false,        % Keine Tabsymbole
+    showstringspaces=false,% Leerzeichen in Strings
+    morecomment=[s][\color{javadoccomment}]{/**}{*/},
+    literate={Ö}{{\"O}}1 {Ä}{{\"A}}1 {Ü}{{\"U}}1 {ß}{{\ss}}2 {ü}{{\"u}}1 {ä}{{\"a}}1 {ö}{{\"o}}1
+}
+
+\hypersetup{
+    pdftitle={\dokumententitel},
+    pdfauthor={\autoren},
+    pdfdisplaydoctitle=true,
+    hidelinks
+}
+
+% Makros für typographisch korrekte Abkürzungen
+\newcommand{\zb}[0]{z.\,B.}
+\newcommand{\dahe}[0]{d.\,h.}
+\newcommand{\ua}[0]{u.\,a.}
+
+% Wo liegt Sourcecode?
+\newcommand{\srcloc}{src/}
+
+% Literatur einbinden
+\addbibresource{literatur.bib}
