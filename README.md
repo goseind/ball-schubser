@@ -4,7 +4,9 @@ A robot 🤖 that pushes a ball 🥎 (into a goal 🥅).
 
 [<img src="media/ball-schubser_front_side_new_desc.jpg" width="400"/>](media/ball-schubser_front_side_new_desc.jpg)
 
-**Check out the paper we published here: [Development of an Autonomous Robot for Detecting and Collecting Objects](paper/Term-Paper_v1.pdf) and the Demo Video here: [Demo Video - Ball Schubser](https://youtu.be/InvO-HXr4YA)**
+[![Demo Video - Ball Schubser](https://img.youtube.com/vi/InvO-HXr4YA/0.jpg)](https://www.youtube.com/watch?v=InvO-HXr4YA)
+
+Citation and link to the paper: [Bracke, A., Gosein, D., Kürschner, M., Mayer, J., & Seefeld, J. (n.d.). Development of an Autonomous Robot for Detecting and Collecting Objects (p. 12) [Working Paper]](https://opus.bib.hs-mannheim.de/frontdoor/index/index/docId/100)
 
 ## Startup Instructions
 
